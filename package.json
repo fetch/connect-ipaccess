@@ -1,0 +1,12 @@
+{
+  "name": "connect-ipaccess",
+  "description": "Connect middleware for allowing or denying clients based on IP",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fetch/connect-ipaccess.git"
+  },
+  "dependencies": {
+     "pause": "0.0.1"
+  }
+}

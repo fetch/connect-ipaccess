@@ -1,12 +1,28 @@
 {
   "name": "connect-ipaccess",
+  "author": {
+    "name": "Koen Punt"
+  },
   "description": "Connect middleware for allowing or denying clients based on IP",
+  "keywords": [
+    "connect",
+    "ip",
+    "address",
+    "middleware"
+  ],
   "version": "0.0.2",
+  "bugs": "https://github.com/fetch/connect-ipaccess/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/fetch/connect-ipaccess.git"
   },
   "dependencies": {
-     "pause": "0.0.1"
-  }
+    "pause": "0.0.1"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.github.com/fetch/connect-ipaccess/master/README.md"
+    }
+  ]
 }

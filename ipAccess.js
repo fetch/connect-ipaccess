@@ -1,6 +1,22 @@
-exports = module.exports = function ipAccess(addresses, allow){
+/*
+ * Connect Middleware for IP address validation
+ *
+ * Build by Koen Punt for Fetch! (http://www.fetch.nl)
+ */
+
+var pause = require('pause');
+
+exports = module.exports = function ipAccess(addresses, allow, callback) {
   var _addresses = addresses instanceof Array ? addresses : ( addresses ? [addresses] : [] );
   allow = allow == null ? true : allow;
+  callback = callback == null ? function(req, res){
+    return allow;
+  } : callback;
+
+  function forbidden(res){
+    res.statusCode = 403;
+    res.end('Forbidden');
+  }
 
   // From: http://catapulty.tumblr.com/post/8303749793/heroku-and-node-js-how-to-get-the-client-ip-address
   function getClientIp(req) {
@@ -23,11 +39,25 @@ exports = module.exports = function ipAccess(addresses, allow){
   };
 
   return function(req, res, next) {
-    if(_addresses.indexOf( getClientIp(req) ) > -1 == allow){
+    if (_addresses.indexOf( getClientIp(req) ) > -1 == allow) {
       next();
-    }else{
-      res.statusCode = 403;
-      res.end('Forbidden');
+    } else {
+      // async
+      if (callback.length >= 3) {
+        var wait = pause(req);
+        callback(req, res, function(err){
+          if (err) return forbidden(res);
+          next();
+          wait.resume();
+        });
+      // sync
+      } else {
+        if (callback(req, res)) {
+          next();
+        } else {
+          return forbidden(res);
+        }
+      }
     }
   }
 };

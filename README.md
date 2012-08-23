@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/fetch/connect-ipaccess.png)](http://travis-ci.org/fetch/connect-ipaccess)
 # ipAccess
 
   Connect middleware for allowing or denying clients based on IP
